@@ -39,3 +39,50 @@ Use the wrapper script to start IPython in the current project directory:
 
 Share these steps or copy the `.ipython_startup` folder and `ipython_local` script into your coworkers' project directories.
 This setup ensures the custom imports are specific to your project and won’t affect other IPython sessions.
+
+
+# Setup Cloudflare Warp
+## Ubuntu
+```bash
+curl -fsSL https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
+
+### Add this repo to your apt repositories
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
+
+### Install
+sudo apt-get update && sudo apt-get install cloudflare-warp
+```
+
+## Debian
+```bash
+### Add cloudflare gpg key
+curl -fsSL https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
+
+### Add this repo to your apt repositories
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
+
+### Install
+sudo apt-get update && sudo apt-get install cloudflare-warp
+```
+
+## RedHat/Centos
+```bash
+### Add cloudflare-warp.repo to /etc/yum.repos.d/
+curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | sudo tee /etc/yum.repos.d/cloudflare-warp.repo
+
+### Update repo
+sudo yum update
+
+### Install
+sudo yum install cloudflare-warp
+```
+
+## commands
+
+```
+warp-cli registration new
+warp-cli registration license
+warp-cli mode proxy
+warp-cli proxy port 4000 // or anything
+warp-cli connect
+```
